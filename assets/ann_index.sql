@@ -21,7 +21,7 @@ SELECT
   # DICOM StudyInstanceUID identifier of the ANN series
   ANY_VALUE(StudyInstanceUID) AS StudyInstanceUID
 FROM
-  `bigquery-public-data.idc_current.dicom_metadata`
+  `bigquery-public-data.idc_current.dicom_all`
 WHERE
   Modality='ANN'
 GROUP BY 
