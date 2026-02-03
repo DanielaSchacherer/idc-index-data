@@ -16,7 +16,10 @@ SELECT
   ANY_VALUE(SeriesDescription) AS SeriesDescription, 
   # description:
   # SeriesInstanceUID of the slide that was annotated
-  ANY_VALUE(ReferencedSeriesSequence[SAFE_OFFSET(0)].SeriesInstanceUID) AS referencedSeriesInstanceUID 
+  ANY_VALUE(ReferencedSeriesSequence[SAFE_OFFSET(0)].SeriesInstanceUID) AS referencedSeriesInstanceUID, 
+  # description:
+  # DICOM StudyInstanceUID identifier of the ANN series
+  ANY_VALUE(StudyInstanceUID) AS StudyInstanceUID
 FROM
   `bigquery-public-data.idc_current.dicom_metadata`
 WHERE
