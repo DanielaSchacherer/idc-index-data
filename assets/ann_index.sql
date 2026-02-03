@@ -1,14 +1,21 @@
 # table-description: 
-# This table contains one row per DICOM Annotation SeriesInstanceUID 
+# This table contains one row per DICOM Annotation (ANN) SeriesInstanceUID 
 # available from IDC, and captures basic
 # metadata about the annotation series including
 # SeriesInstanceUID, SeriesDescription and the annotated image series. 
 
 SELECT
+  # description:
+  # DICOM SeriesInstanceUID identifier of the ANN series
   SeriesInstanceUID, 
-  # SeriesDescription does not vary across instances, so can be selected any of the values during grouping 
+  # description:
+  # unique identifier of the collection
+  ANY_VALUE(collection_id) AS collection_id,
+  # description:
+  # Description of the DICOM annotation series 
   ANY_VALUE(SeriesDescription) AS SeriesDescription, 
-  # SeriesInstanceUID of the slide that the ANN file refers to. 
+  # description:
+  # SeriesInstanceUID of the slide that was annotated
   ANY_VALUE(ReferencedSeriesSequence[SAFE_OFFSET(0)].SeriesInstanceUID) AS referencedSeriesInstanceUID 
 FROM
   `bigquery-public-data.idc_current.dicom_metadata`
